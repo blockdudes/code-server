@@ -1,0 +1,15 @@
+Index: code-server/lib/vscode/src/vs/base/browser/dom.ts
+===================================================================
+--- code-server.orig/lib/vscode/src/vs/base/browser/dom.ts
++++ code-server/lib/vscode/src/vs/base/browser/dom.ts
+@@ -1147,7 +1147,9 @@ export function windowOpenNoOpener(url:
+ 	// See https://developer.mozilla.org/en-US/docs/Web/API/Window/open#noopener
+ 	// However, this also doesn't allow us to realize if the browser blocked
+ 	// the creation of the window.
+-	window.open(url, '_blank', 'noopener');
++	// window.open(url, '_blank', 'noopener');
++
++	window.parent.postMessage({ type: 'openUrlNewTab', url: url }, '*');
+ }
+ 
+ /**
